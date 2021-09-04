@@ -1,2 +1,2 @@
-# Stocks.c-Stock-Finder
-Google Apps Script program that finds stocks that have a chart of a certain type and selects them for review.
+# Stocks.c Stock Finder
+This is a Google Apps Script project that uses Yahoo Finance data and analyzes the data to find stocks that are good buys.
