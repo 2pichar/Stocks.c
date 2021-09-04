@@ -1,0 +1,12 @@
+{
+  "name": "stocks.c",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "clasp run test\" && exit 1"
+  },
+  "author": "Charles Ludden",
+  "license": "ISC",
+  "description": ""
+}
