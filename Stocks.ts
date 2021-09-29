@@ -22,6 +22,12 @@ var getStockData = function(ticker: str = "", type: str = "price"){
     var endDay: int = endDate.getDate();
     var startDate: Date = null;
     switch(period){
+      case Periods.Day:
+				startDate = new Date(endYear, endMonth, endDay - 1);
+				break;
+			case Periods.Week:
+				startDate = new Date(endYear, endMonth, endDay - 7);
+				break;
       case Periods.Month_1:
         startDate = new Date(endYear, endMonth-1, endDay);
         break;

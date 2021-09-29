@@ -4,6 +4,8 @@ type bool = boolean;
 
 var Periods =  {
   YTD:'YTD',
+  Day: 'Day',
+  Week: 'Week',
   Month_1:'Month_1',
   Month_3:'Month_3',
   Month_6:'Month_6',
