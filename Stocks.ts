@@ -61,6 +61,26 @@ var getStockData = function(ticker: str = "", type: str = "price"){
     Logger.log(data)
   }
 
-  const getStocks = function(exch: str = "all"){
-    
+  const getStocks = function(exch: str = "all"): str[]{
+    exch = exch.toLowerCase();
+    var exchs: str[] = ["all", "nasdaq", "nyse"];
+    if (!(exch in exchs)){
+      throw new Error("Invalid exchange");
+    }
+    var csv: str;
+    var url: str;
+    if(exch === "nasdaq"){
+      url = ndxlsturl;
+    } else if(exch == "nyse"){
+      url = ndxlsturl;
+    } else {
+      //exch == "all"
+      var ndx = getStocks("nasdaq");
+      var nyse = getStocks("nyse");
+      return [...ndx, ...nyse];
+    }
+    csv = urlFetch.fetch(url).getContentText();
+    var data: str[][] = util.parseCsv(csv);
+    var tickers: str[] = data[0].slice(1);
+    return tickers;
   }
