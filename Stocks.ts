@@ -60,3 +60,7 @@ var getStockData = function(ticker: str = "", type: str = "price"){
     }
     Logger.log(data)
   }
+
+  const getStocks = function(exch: str = "all"){
+    
+  }
