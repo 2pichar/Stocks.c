@@ -1,8 +1,3 @@
-<style>
-    * {
-        font-family: monospace;
-    }
-</style>
 [Stocks.c]: "https://docs.google.com/spreadsheets/d/1LmKym1CGtdVEEe9QNJSNLMLZe8i-LHT1XLxPj3SgSkM/edit?usp=sharing" "Stocks.c"
 # Stocks.c Stock Finder
 This is a Google Apps Script project that uses Yahoo Finance data and analyzes the data to find stocks that are at a good time to buy.
