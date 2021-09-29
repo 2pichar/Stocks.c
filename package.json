@@ -2,7 +2,10 @@
   "name": "stocks.c",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
+  "dependencies": {
+    "@types/google-apps-script": "^1.0.37",
+    "@google/clasp": "^2.4.1"
+  },
   "scripts": {
     "test": "clasp run test\" && exit 1"
   },
