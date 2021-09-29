@@ -31,7 +31,7 @@ function JS(codeString, params = [], ...parameters){
 function STOCKS(tickers, type = "price"){
   tickers = tickers.flat(2);
   var return_table = [];
-  for(ticker of tickers){
+  for(let ticker of tickers){
     return_table.push([ticker, getStockData(ticker, type)]);
   }
   return return_table;
