@@ -40,6 +40,12 @@ function onOpen(e){
   scriptsMenu.addToUi();
 }
 
+var avg = function(...nums: int[]): int{
+  var res = nums.reduce((prev, acc)=>prev+acc);
+  res /= nums.length;
+  return res;
+}
+
 var test = function(){
   getStockHistory('AAPL');
 }
