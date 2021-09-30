@@ -146,7 +146,12 @@ const getStocks = function(exch: str = "all"): str[]{
   return tickers;
 }
 
-var analyze = function(stocks: str[]){
+var _analyze = function(data: int[]): bool{
+  return null;
+}
+
+var analyze = function(stocks: str[]): {str: bool} {
+  let picks: {str: bool};
   let stock: str;
   for(stock of stocks){
     let data: StockHistory = getStockHistory(stock);
