@@ -147,7 +147,14 @@ const getStocks = function(exch: str = "all"): str[]{
 }
 
 var _analyze = function(data: int[]): bool{
-  return null; //TODO: Implement to analyze stocks
+  /*
+  Trends?
+  SMA?
+  PE?
+  PEG?
+  Doubled?
+  */
+  return false; //TODO: Implement to analyze stocks
 }
 
 var analyze = function(stocks: str[]): {str: bool} {
