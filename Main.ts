@@ -1,5 +1,7 @@
 type str = string;
+type char = string;
 type int = number;
+type float = number;
 type bool = boolean;
 
 var Periods =  {
