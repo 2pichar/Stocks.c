@@ -5,7 +5,4 @@ This is a Google Apps Script project that uses Yahoo Finance data and analyzes t
 This is the source code for a Google Apps Script project connected to a [Google Spreadsheet][Stocks.c].
 
 ### TODO
-- Call getStockHistory\() on each stock
-
-### DONE
-- Get list of all stocks
+- Implement _analyze function to analyze stocks
