@@ -155,10 +155,13 @@ var analyze = function(stocks: str[]): {str: bool} {
   let stock: str;
   for(stock of stocks){
     let data: StockHistory = getStockHistory(stock);
-    let values: int[] = [];
+    let values: int[];
     let i: StockData;
     for(i of data){
       values.push(i[1]);
     }
+    let good: bool = _analyze(values);
+    picks[stock] = good;
   }
+  return picks;
 }
