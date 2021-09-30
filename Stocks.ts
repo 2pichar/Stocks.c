@@ -58,13 +58,74 @@ var getStockHistory = function(ticker: str = "", type: str = "price", period: st
       data[i][j] = +(data[i][j]);
     }
   }
-  Logger.log(data)
+  var ret: StockHistory;
+  let i;
+  switch (type){
+    case "price":
+      for(i of data){
+        if(typeof i === "string"){
+          continue;
+        }
+        ret.push([i[0], i[1]]);
+      }
+      break;
+    case "open":
+      for(i of data){
+        if(typeof i === "string"){
+          continue;
+        }
+        ret.push([i[0], i[1]]);
+      }
+      break;
+    case "high":
+      for(i of data){
+        if(typeof i === "string"){
+          continue;
+        }
+        ret.push([i[0], i[2]]);
+      }
+      break;
+    case "low":
+      for(i of data){
+        if(typeof i === "string"){
+          continue;
+        }
+        ret.push([i[0], i[3]]);
+      }
+      break;
+    case "close":
+      for(i of data){
+        if(typeof i === "string"){
+          continue;
+        }
+        ret.push([i[0], i[4]]);
+      }
+      break;
+    case "adjclose":
+      for(i of data){
+        if(typeof i === "string"){
+          continue;
+        }
+        ret.push([i[0], i[5]]);
+      }
+      break;
+    case "volume":
+      for(i of data){
+        if(typeof i === "string"){
+          continue;
+        }
+        ret.push([i[0], i[6]]);
+      }
+      break;
+  }
+  Logger.log(ret);
+  return ret;
 }
 
 const getStocks = function(exch: str = "all"): str[]{
   exch = exch.toLowerCase();
   var exchs: str[] = ["all", "nasdaq", "nyse"];
-  if (!(exch in exchs)){
+  if (!exchs.includes(exch)){
     throw new Error("Invalid exchange");
   }
   var csv: str;
@@ -83,4 +144,16 @@ const getStocks = function(exch: str = "all"): str[]{
   var data: str[][] = util.parseCsv(csv);
   var tickers: str[] = data[0].slice(1);
   return tickers;
+}
+
+var analyze = function(stocks: str[]){
+  let stock: str;
+  for(stock of stocks){
+    let data: StockHistory = getStockHistory(stock);
+    let values: int[] = [];
+    let i: StockData;
+    for(i of data){
+      values.push(i[1]);
+    }
+  }
 }
