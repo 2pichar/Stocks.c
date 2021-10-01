@@ -146,15 +146,53 @@ const getStocks = function(exch: str = "all"): str[]{
   return tickers;
 }
 
-var _analyze = function(data: int[]): bool{
+var _analyze = function(data: int[]): int{
   /*
   Trends?
   SMA?
   PE?
   PEG?
   Doubled?
+  Gain > 0
   */
-  return false; //TODO: Implement to analyze stocks
+  let score: int = 0;
+  let chng = data[data.length - 1] - data[0];
+  if(chng < 0) return 0;
+  let counts = {
+    up: 0,
+    down: 0
+  };
+  data.reduce((_prev, _acc, ind, arr) => {
+    if(arr[ind] > arr[ind-1]) { // Up Day Gain
+      counts.up++;
+    } else
+    if (arr[ind] == arr[ind-1]){ // Flat Day Gain
+      counts.up++;
+    }
+    else { // Down Day Gain
+      counts.down++;
+    }
+    return null;
+  });
+  let doubled = data[data.length-1]/data[0] >= 2;
+  let sma = {
+    20: [],
+    50: [],
+    200: []
+  };
+  // Get Moving Average Data
+  let i: int;
+  for(i = 20; i < data.length; i++){
+    sma[20].push(avg(...(data.slice(i-20, i))));
+    if(i >= 50){
+      sma[50].push(avg(...(data.slice(i-50, i))));
+      if(i >= 200){
+        sma[200].push(avg(...(data.slice(i-200, i))));
+      }
+    }
+  }
+  let smaOrdered = ((sma[20]).last() > (sma[50]).last() && (sma[50]).last() > (sma[200]).last())
+  return score; //TODO: Implement to analyze stocks
 }
 
 var analyze = function(stocks: str[]): {str: bool} {
@@ -167,8 +205,8 @@ var analyze = function(stocks: str[]): {str: bool} {
     for(i of data){
       values.push(i[1]);
     }
-    let good: bool = _analyze(values);
-    picks[stock] = good;
+    let score: int = _analyze(values);
+    picks[stock] = score;
   }
   return picks;
 }
