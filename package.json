@@ -11,5 +11,8 @@
   },
   "author": "Charles Ludden",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^16.10.2"
+  }
 }
