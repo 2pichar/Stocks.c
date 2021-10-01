@@ -8,6 +8,14 @@ type bool = boolean;
 // Custom Types
 type StockData = [Date, int];
 type StockHistory = StockData[];
+Object.defineProperty("Array.prototype", "last", {
+  value(){
+    return self[self.length - 1];
+  },
+  enumerable: false,
+  configurable: false,
+  writable: false
+});
 
 var Periods =  {
   YTD:'YTD',
