@@ -191,7 +191,7 @@ var _analyze = function(data: int[]): int{
       }
     }
   }
-  let smaOrdered = ((sma[20]).last() > (sma[50]).last() && (sma[50]).last() > (sma[200]).last())
+  let smaOrdered = ((sma[20]).last() > (sma[50]).last() && (sma[50]).last() > (sma[200]).last());
   return score; //TODO: Implement to analyze stocks
 }
 
