@@ -157,7 +157,7 @@ var _analyze = function(data: int[]): int{
   */
   let score: int = 0;
   let chng = data[data.length - 1] - data[0];
-  if(chng < 0) return 0;
+  if(chng < 0) return -10;
   let counts = {
     up: 0,
     down: 0
@@ -174,7 +174,13 @@ var _analyze = function(data: int[]): int{
     }
     return null;
   });
+  if(counts.up > counts.down){
+    score++;
+  }
   let doubled = data[data.length-1]/data[0] >= 2;
+  if(doubled){
+    score++;
+  }
   let sma = {
     20: [],
     50: [],
@@ -192,6 +198,9 @@ var _analyze = function(data: int[]): int{
     }
   }
   let smaOrdered = ((sma[20]).last() > (sma[50]).last() && (sma[50]).last() > (sma[200]).last());
+  if(smaOrdered){
+    score++;
+  }
   return score; //TODO: Implement to analyze stocks
 }
 
