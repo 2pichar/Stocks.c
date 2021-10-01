@@ -147,14 +147,6 @@ const getStocks = function(exch: str = "all"): str[]{
 }
 
 var _analyze = function(data: int[]): int{
-  /*
-  Trends?
-  SMA?
-  PE?
-  PEG?
-  Doubled?
-  Gain > 0
-  */
   let score: int = 0;
   let chng = data[data.length - 1] - data[0];
   if(chng < 0) return -10;
