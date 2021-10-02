@@ -1,4 +1,4 @@
-import  './types' // get type
+import  './types' // get types
 import request from './request';
 import * as utils from './utils';
 var getStockHistory = async function(ticker: str = "", type: str = "price", period: str = Periods.Year_1){
