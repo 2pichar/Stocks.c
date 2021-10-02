@@ -1,6 +1,6 @@
 import  './types' // get type
 import request from './request';
-import * as csv from './csv';
+import * as utils from './utils';
 var getStockHistory = async function(ticker: str = "", type: str = "price", period: str = Periods.Year_1){
     var endDate: Date = new Date((new Date()).toLocaleDateString());
     var endYear: int = endDate.getFullYear();
@@ -37,7 +37,7 @@ var getStockHistory = async function(ticker: str = "", type: str = "price", peri
     }
     var url: str = `https://query1.finance.yahoo.com/v7/finance/download/${ticker}?interval=1d&events=current&includeAdjustedClose=true&period1=${startDate.valueOf()/1000}&period2=${endDate.valueOf()/1000}`;
     var csvd: str = await request(url);
-    var data: (str | int | Date)[][] = csv.parse(csvd);
+    var data: (str | int | Date)[][] = utils.parseCSV(csvd);
     for (let i in data){
       data[i][0] = new Date(data[i][0]);
       for(let j = 1; j < data[i].length; j++){
