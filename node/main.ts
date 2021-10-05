@@ -5,8 +5,8 @@ import * as fs from 'fs';
 const webDir = './../web';
 const PORT = 3000;
 
-const server = http.createServer();
-server.on('request', (req, res)=>{
+const server = http.createServer()
+.on('request', (req, res)=>{
 	console.log(req);
 	var path: str = req.url ?? '/';
 	let url: URL;
@@ -66,5 +66,5 @@ server.on('request', (req, res)=>{
 	})
 	res.write(body);
 	res.end();
-});
-server.listen(PORT)
+})
+.listen(PORT);
