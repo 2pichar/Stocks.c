@@ -214,3 +214,9 @@ var analyze = async function (stocks: str[]): Promise<{ str: bool }> {
 }
 export default analyze;
 export {analyze, getStockHistory, getStockData, getStocks};
+module.exports = {
+  analyze,
+  getStockHistory,
+  getStockData,
+  getStocks
+};

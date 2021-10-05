@@ -1,9 +1,10 @@
-import * as stocks from './stocks'
-import * as http from 'http'
-import * as request from './request';
-import * as fs from 'fs'
+const stocks = require('./stocks');
+const http = require('http')
+const request = require('./request')
+const fs = require('fs');
 
-const webLoc = './../web'
+const webLoc = './../web';
+const PORT = 80;
 
 const server = http.createServer();
 server.on('request', (req, res)=>{
@@ -54,3 +55,4 @@ server.on('request', (req, res)=>{
 	res.write(body);
 	res.end();
 });
+server.listen(PORT)

@@ -29,3 +29,6 @@ const Status = {
 };
 export default request;
 export {request, Status};
+module.exports = {
+	request, Status 
+};
