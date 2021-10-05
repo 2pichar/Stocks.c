@@ -19,10 +19,6 @@ const Periods = {
   Year_1: 'Year_1',
   Year_2: 'Year_2'
 }
-const Status = {
-  200: 'OK',
-  404: 'Not Found'
-};
 
 Object.defineProperty("Array.prototype", "last", {
     value(){

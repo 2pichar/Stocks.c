@@ -1,5 +1,5 @@
 import * as http from 'http' // Import HTTP module
-export default async function request(url: str): Promise<str> {
+async function request(url: str): Promise<str> {
     return new Promise((resolve, reject)=>{
         const request = http.get(url, (res)=>{
             let chunks = [];
@@ -22,3 +22,10 @@ export default async function request(url: str): Promise<str> {
         request.end();
     });
 }
+
+const Status = {
+    200: 'OK',
+    404: 'Not Found'
+};
+export default request;
+export {request, Status};
