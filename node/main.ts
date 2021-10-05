@@ -1,26 +1,29 @@
-const stocks = require('./stocks');
-const http = require('http')
-const request = require('./request')
-const fs = require('fs');
-
+import * as stocks from './stocks';
+import * as http from 'https';
+import * as request from './request';
+import * as fs from 'fs';
 const webLoc = './../web';
-const PORT = 80;
+const PORT = 3000;
 
 const server = http.createServer();
 server.on('request', (req, res)=>{
+	console.log(req);
 	var path: str = req.url ?? '/';
-	var url: URL = new URL(path, req.headers.host);
+	let url: URL;
+	try {
+		url = new URL(path, req.headers.host);
+	} catch(err) {}
 	var method: str = req.method;
 	var body: str = '';
 	var code: int = 200;
-	var msg: str = request.Status[200];
+	var status: str = request.Status[code];
 	var type: str = 'text/html';
 	if (path.endsWith('.html')) {
 		try{
 				body = fs.readFileSync(`${webLoc}/html${path}`, 'utf-8');
 		} catch(e) {
 			code = 404;
-			msg = request.Status[404];
+			status = request.Status[404];
 		}
 	}
 	else if (path.endsWith('.js')) {
@@ -29,7 +32,7 @@ server.on('request', (req, res)=>{
 			type = 'text/javascript';
 		} catch(e) {
 			code = 404;
-			msg = request.Status[404];
+			status = request.Status[404];
 		}
 	}
 	else if (path.endsWith('.css')) {
@@ -38,7 +41,7 @@ server.on('request', (req, res)=>{
 			type = 'text/css';
 		} catch(e) {
 			code = 404;
-			msg = request.Status[404];
+			status = request.Status[404];
 		}
 	}
 	if (path == '/') {
@@ -47,12 +50,16 @@ server.on('request', (req, res)=>{
 	else if (path == '/picks' || path == '/stockpicks') {
 		body = fs.readFileSync(`${webLoc}/html/stockpicks.html`, 'utf-8');
 	}
-	
+	else {
+		code = 404;
+		status = request.Status[404];
+	}
+	var msg = `${code} ${status}`;
 	res.writeHead(code, msg, {
 			'Content-Length':Buffer.byteLength(body),
-			'Content-Type': `text/${type}`
+			'Content-Type': `${type}`
 	})
 	res.write(body);
 	res.end();
 });
-server.listen(PORT)
+server.listen(/*PORT*/)
