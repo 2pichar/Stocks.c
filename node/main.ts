@@ -1,32 +1,53 @@
 import * as stocks from './stocks'
 import * as http from 'http'
+import * as request from './request';
 import * as fs from 'fs'
 
-const notfound404 = '404: Page Not Found'
+const webLoc = './../web/'
 
 const server = http.createServer();
 server.on('request', (req, res)=>{
-    var path = req.url ?? '/';
-    var url = new URL(path, req.headers.host);
-    var html: str = '';
-    var code = 200;
-    var msg = Status[200];
-    if(path.endsWith('.html')){
-        try{
-            html = fs.readFileSync(`./html/${path}`, 'utf-8');
-        } catch(e) {
-            code = 404;
-            msg = Status[404];
-        }
-    }
-    if (path == '/') {
-        html = fs.readFileSync('./html/index.html', 'utf-8');
-    }
-    
-    res.writeHead(code, msg, {
-        'Content-Length':Buffer.byteLength(html),
-        'Content-Type': `text/${(code == 200) ? 'html' : 'plain'}`
-    })
-    res.write(html);
-    res.end();
+		var path: str = req.url ?? '/';
+		var url: URL = new URL(path, req.headers.host);
+		var body: str = '';
+		var code: int = 200;
+		var msg: str = request.Status[200];
+		var type: str = 'text/html';
+		if (path.endsWith('.html')) {
+				try{
+						body = fs.readFileSync(`${webLoc}html${path}`, 'utf-8');
+				} catch(e) {
+						code = 404;
+						msg = request.Status[404];
+				}
+		}
+		else if (path.endsWith('.js')) {
+				try {
+					body = fs.readFileSync(`${webLoc}js${path}`, 'utf-8');
+					type = 'text/javascript';
+				} catch(e) {
+					code = 404;
+					msg = request.Status[404];
+				}
+		}
+		else if (path.endsWith('.css')) {
+			try {
+				body = fs.readFileSync(`${webLoc}css${path}`, 'utf-8');
+				type = 'text/css';
+			} catch(e) {
+				code = 404;
+				msg = request.Status[404];
+			}
+		}
+		if (path == '/') {
+				body = fs.readFileSync(`${webLoc}html/index.html`, 'utf-8');
+		}
+		else if (path == '/')
+		
+		res.writeHead(code, msg, {
+				'Content-Length':Buffer.byteLength(body),
+				'Content-Type': `text/${type}`
+		})
+		res.write(body);
+		res.end();
 });
