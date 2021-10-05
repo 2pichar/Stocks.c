@@ -122,29 +122,20 @@ var getStockHistory = function(ticker: str = "", type: str = "price", period: st
   return ret;
 }
 
-const getStocks = function(exch: str = "all"): str[]{
-  exch = exch.toLowerCase();
-  var exchs: str[] = ["all", "nasdaq", "nyse"];
-  if (!exchs.includes(exch)){
-    throw new Error("Invalid exchange");
+const getStocks = var url: str = `https://query1.finance.yahoo.com/v7/finance/download/${ticker}?interval=1d&events=current&includeAdjustedClose=true`;
+  var csv: str = urlFetch.fetch(url).getContentText();
+  var data: (str | int | Date)[][] = util.parseCsv(csv);
+  data[1][0] = new Date(data[1][0])
+  for(let i = 1; i < data[1].length; i++){
+    data[1][i] = +data[1][i];
   }
-  var csv: str;
-  var url: str;
-  if(exch === "nasdaq"){
-    url = ndxlsturl;
-  } else if(exch == "nyse"){
-    url = ndxlsturl;
-  } else {
-    //exch == "all"
-    var ndx = getStocks("nasdaq");
-    var nyse = getStocks("nyse");
-    return [...ndx, ...nyse];
+  switch(type){
+    case "price": return data[1][5];
+    case "volume": return data[1][6];
+    case "open": return data[1][1];
+    case "close": return data[1][5];
+    default: return data[1][5];
   }
-  csv = urlFetch.fetch(url).getContentText();
-  var data: str[][] = util.parseCsv(csv);
-  var tickers: str[] = data[0].slice(1);
-  return tickers;
-}
 
 var _analyze = function(data: int[]): int{
   let score: int = 0;
@@ -193,7 +184,7 @@ var _analyze = function(data: int[]): int{
   if(smaOrdered){
     score++;
   }
-  return score; //TODO: Implement to analyze stocks
+  return score;
 }
 
 var analyze = function(stocks: str[]): {str: bool} {
