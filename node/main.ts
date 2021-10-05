@@ -1,8 +1,8 @@
 import * as stocks from './stocks';
-import * as http from 'https';
+import * as http from 'http';
 import * as request from './request';
 import * as fs from 'fs';
-const webLoc = './../web';
+const webDir = './../web';
 const PORT = 3000;
 
 const server = http.createServer();
@@ -19,41 +19,46 @@ server.on('request', (req, res)=>{
 	var status: str = request.Status[code];
 	var type: str = 'text/html';
 	if (path.endsWith('.html')) {
-		try{
-				body = fs.readFileSync(`${webLoc}/html${path}`, 'utf-8');
-		} catch(e) {
+		try {
+			var dir = `${webDir}/html${path}`;
+			body = fs.readFileSync(dir, 'utf-8');
+			type = 'text/html';
+		} catch(err) {
 			code = 404;
 			status = request.Status[404];
 		}
 	}
 	else if (path.endsWith('.js')) {
 		try {
-			body = fs.readFileSync(`${webLoc}/js${path}`, 'utf-8');
+			var dir = `${webDir}/js${path}`;
+			body = fs.readFileSync(dir, 'utf-8');
 			type = 'text/javascript';
-		} catch(e) {
+		} catch(err) {
 			code = 404;
 			status = request.Status[404];
 		}
 	}
 	else if (path.endsWith('.css')) {
 		try {
-			body = fs.readFileSync(`${webLoc}/css${path}`, 'utf-8');
+			var dir = `${webDir}/css${path}`;
+			body = fs.readFileSync(dir, 'utf-8');
 			type = 'text/css';
-		} catch(e) {
+		} catch(err) {
 			code = 404;
 			status = request.Status[404];
 		}
 	}
 	if (path == '/') {
-		body = fs.readFileSync(`${webLoc}/html/index.html`, 'utf-8');
+		body = fs.readFileSync(`${webDir}/html/index.html`, 'utf-8');
 	}
 	else if (path == '/picks' || path == '/stockpicks') {
-		body = fs.readFileSync(`${webLoc}/html/stockpicks.html`, 'utf-8');
+		body = fs.readFileSync(`${webDir}/html/stockpicks.html`, 'utf-8');
 	}
 	else {
 		code = 404;
 		status = request.Status[404];
 	}
+	body += '\n';
 	var msg = `${code} ${status}`;
 	res.writeHead(code, msg, {
 			'Content-Length':Buffer.byteLength(body),
@@ -62,4 +67,4 @@ server.on('request', (req, res)=>{
 	res.write(body);
 	res.end();
 });
-server.listen(/*PORT*/)
+server.listen(PORT)
