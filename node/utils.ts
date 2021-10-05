@@ -1,4 +1,4 @@
-const parseCSV = function(csv: str): str[][]{
+const parseCsv = function(csv: str): str[][]{
     let lines: str[] = csv.split('\n');
     let line: str;
     let data: str[][] = [];
@@ -13,4 +13,4 @@ const avg = function(...nums: int[]): int{
     res /= nums.length;
     return res;
 }
-export {parseCSV, avg};
+export {parseCsv, avg};
