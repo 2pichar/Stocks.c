@@ -1,4 +1,4 @@
-import 'types' // get types
+import './types' // get types
 import request from 'request';
 import * as util from 'utils';
 var getStockData = async function(ticker: str = "", type:str = "price"){
