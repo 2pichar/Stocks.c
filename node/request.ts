@@ -47,7 +47,8 @@ async function getBody(req: http.IncomingMessage): Promise<str>{
 
 const Status = {
     200: 'OK',
-    404: 'Not Found'
+    404: 'Not Found',
+    501: 'Not Implemented'
 };
 export default request;
 export {request, getBody, Status};

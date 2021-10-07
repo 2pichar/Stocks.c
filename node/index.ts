@@ -19,58 +19,64 @@ const server = http.createServer()
 	var body: str = req.body;
 	var data: str = '';
 	var code: int = 200;
-	var status: str = request.Status[code];
 	var type: str = 'text/html';
-	if (path.endsWith('.html')) {
-		try {
-			var dir = `${webDir}/html${path}`;
-			data = fs.readFileSync(dir, 'utf-8');
-			type = 'text/html';
-		} catch(err) {
-			console.error(err);
-			code = 404;
-			status = request.Status[404];
+	if(method == 'GET'){
+		if (path.endsWith('.html')) {
+			try {
+				var dir = `${webDir}/html${path}`;
+				data = fs.readFileSync(dir, 'utf-8');
+				type = 'text/html';
+			} catch(err) {
+				console.error(err);
+				code = 404;
+			}
 		}
-	}
-	else if (path.endsWith('.js')) {
-		try {
-			var dir = `${webDir}/js${path}`;
-			data = fs.readFileSync(dir, 'utf-8');
-			type = 'text/javascript';
-		} catch(err) {
-			console.error(err);
-			code = 404;
-			status = request.Status[404];
+		else if (path.endsWith('.js')) {
+			try {
+				var dir = `${webDir}/js${path}`;
+				data = fs.readFileSync(dir, 'utf-8');
+				type = 'text/javascript';
+			} catch(err) {
+				console.error(err);
+				code = 404;
+			}
 		}
-	}
-	else if (path.endsWith('.css')) {
-		try {
-			var dir = `${webDir}/css${path}`;
-			data = fs.readFileSync(dir, 'utf-8');
-			type = 'text/css';
-		} catch(err) {
-			console.error(err);
-			code = 404;
-			status = request.Status[404];
+		else if (path.endsWith('.css')) {
+			try {
+				var dir = `${webDir}/css${path}`;
+				data = fs.readFileSync(dir, 'utf-8');
+				type = 'text/css';
+			} catch(err) {
+				console.error(err);
+				code = 404;
+			}
 		}
-	}
-	else if (path == '/') {
-		data = fs.readFileSync(`${webDir}/html/index.html`, 'utf-8');
-	}
-	else if (path == '/picks' || path == '/stockpicks') {
-		data = fs.readFileSync(`${webDir}/html/stockpicks.html`, 'utf-8');
-	}
-	else if(path == '/stocks' && method == 'GET'){
-		data = JSON.stringify(await stocks.analyze(await stocks.getStocks('all')));
+		else if (path == '/') {
+			data = fs.readFileSync(`${webDir}/html/index.html`, 'utf-8');
+		}
+		else if (path == '/picks' || path == '/stockpicks') {
+			data = fs.readFileSync(`${webDir}/html/stockpicks.html`, 'utf-8');
+		}
+		else if (path == '/stocks'){
+			data = JSON.stringify(await stocks.analyze(await stocks.getStocks('all')));
 		type = 'text/json';
+		}
+		else {
+			code = 404;
+		}
 	}
-	else if(path == '/login' && method == 'POST'){
+	else if (method == 'POST'){
+		if (path == '/login') {
 
+		}
+		else {
+			code = 404;
+		}
 	}
 	else {
-		code = 404;
-		status = request.Status[404];
+		code = 501;
 	}
+	var status: str = request.Status[code];
 	data += '\n';
 	var msg = `${code} ${status}`;
 	res.writeHead(code, msg, {
