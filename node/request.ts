@@ -22,13 +22,35 @@ async function request(url: str): Promise<str> {
         request.end();
     });
 }
+async function getBody(req: http.IncomingMessage): Promise<str>{
+    return new Promise((resolve, reject)=>{
+        let data = []
+        req.on('data', (chunk)=>{
+            data.push(chunk)
+        })
+        .on('error', (err)=>{
+            reject(err);
+        })
+        .on('end', ()=>{
+            let body = Buffer.concat(data).toString()
+            Object.defineProperty(req, 'body', {
+                value: body,
+                configurable: false,
+                enumerable: true,
+                writable: false
+            });
+            resolve(body);
+        });
+        
+    });
+}
 
 const Status = {
     200: 'OK',
     404: 'Not Found'
 };
 export default request;
-export {request, Status};
+export {request, getBody, Status};
 module.exports = {
-	request, Status 
+	request, Status, getBody
 };
