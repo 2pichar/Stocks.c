@@ -2,6 +2,7 @@ import * as stocks from './stocks';
 import * as http from 'http';
 import * as request from './request';
 import * as fs from 'fs';
+import * as sqlite from 'better-sqlite3'
 const webDir = './../web';
 const PORT = 3000;
 
@@ -62,6 +63,9 @@ const server = http.createServer()
 	else if(path == '/stocks' && method == 'GET'){
 		data = JSON.stringify(await stocks.analyze(await stocks.getStocks('all')));
 		type = 'text/json';
+	}
+	else if(path == '/login' && method == 'POST'){
+
 	}
 	else {
 		code = 404;
