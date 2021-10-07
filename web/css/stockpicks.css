@@ -1,4 +1,11 @@
-#stockPicksTable {
+#picksTable {
   border: 2pt solid black;
   background-color: gainsboro;
+}
+#picksTable td {
+  /*background-color: gainsboro;*/
+  border: 1pt solid black;
+}
+td, th {
+  padding:1%;
 }

@@ -3,20 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title>Stock Picks | Stocks.c</title>
-    <link href="/stockpicks.css" type="text/css" rel="stylesheet"/>
+    <link href="/stockpicks.css" rel="stylesheet" type="text/css"/>
+    <link href="/table.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
+    <header>
+      <a href="/">Stocks.c</a>
+      <a href="/login">Login</a>
+    </header>
     <h1>Stock Picks</h1>
-    <table id="stockPicksTable">
+    <table id="picksTable">
+      <colgroup>
+        <col class=".ticker">
+        <col class=".price">
+        <col class=".chart">
+      </colgroup>
       <thead>
         <tr>
-          <td id="tickerHead">Ticker</td>
-          <td id="cPriceHead">Current Price</td>
-          <td id="chartHead">Stock Chart</td>
+          <th id="tickerHead">Ticker</th>
+          <th id="cPriceHead">Current Price</th>
+          <th id="chartHead">Stock Chart</th>
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td class="ticker">AAPL</td>
+          <td class="price">100</td>
+          <td class="chart">sfd</td>
+        </tr>
       </tbody>
     </table>
+    <footer></footer>
+    <script src="/stockpicks.js" type="text/javascript"></script>
   </body>
 </html>
