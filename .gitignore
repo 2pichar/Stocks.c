@@ -106,3 +106,5 @@ dist
 #compiled TS files
 node/*.js
 Apps Script/*.js
+
+logs.txt
