@@ -9,6 +9,10 @@ const PORT = 3000;
 const server = http.createServer()
 .on('request', async (req, res)=>{
 	await request.getBody(req);
+	req.on('error', (err)=>{
+		console.error(err.message);
+		code = 400;
+	});
 	console.log(req);
 	var path: str = req.url ?? '/';
 	let url: URL;
@@ -68,6 +72,12 @@ const server = http.createServer()
 	else if (method == 'POST'){
 		if (path == '/login') {
 
+		}
+		else if ((['/picks', '/stockpicks', '/stocks', '/']).includes(path)){
+			code = 405
+		}
+		else if (path.endsWith('.css') || path.endsWith('.html') || path.endsWith('.js')){
+			code = 405
 		}
 		else {
 			code = 404;
