@@ -20,7 +20,7 @@ const Periods = {
   Year_2: 'Year_2'
 }
 
-Object.defineProperty("Array.prototype", "last", {
+Object.defineProperty(Array.prototype, "last", {
     value(){
       return self[self.length - 1];
     },
