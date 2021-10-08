@@ -47,8 +47,10 @@ async function getBody(req: http.IncomingMessage): Promise<str>{
 
 const Status = {
     200: 'OK',
+    400: 'Bad Request',
     401: 'Unauthorized',
     404: 'Not Found',
+    405: 'Method Not Allowed',
     501: 'Not Implemented'
 };
 export default request;
