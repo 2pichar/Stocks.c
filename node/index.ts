@@ -2,8 +2,8 @@ import * as stocks from './stocks';
 import * as http from 'http';
 import * as request from './request';
 import * as fs from 'fs';
-import * as sqlite from 'better-sqlite3'
-const webDir = './../web';
+import * as sql from 'better-sqlite3'
+const web = './../web';
 const PORT = 3000;
 
 const server = http.createServer()
@@ -15,10 +15,7 @@ const server = http.createServer()
 	});
 	console.log(req);
 	var path: str = req.url ?? '/';
-	let url: URL;
-	try {
-		url = new URL(path, req.headers.host);
-	} catch(err) {}
+	let url: URL = new URL(path, req.headers.host);
 	var method: str = req.method;
 	var body: str = req.body;
 	var data: str = '';
@@ -27,7 +24,7 @@ const server = http.createServer()
 	if(method == 'GET'){
 		if (path.endsWith('.html')) {
 			try {
-				var dir = `${webDir}/html${path}`;
+				var dir = `${web}/html${path}`;
 				data = fs.readFileSync(dir, 'utf-8');
 				type = 'text/html';
 			} catch(err) {
@@ -37,7 +34,7 @@ const server = http.createServer()
 		}
 		else if (path.endsWith('.js')) {
 			try {
-				var dir = `${webDir}/js${path}`;
+				var dir = `${web}/js${path}`;
 				data = fs.readFileSync(dir, 'utf-8');
 				type = 'text/javascript';
 			} catch(err) {
@@ -47,7 +44,7 @@ const server = http.createServer()
 		}
 		else if (path.endsWith('.css')) {
 			try {
-				var dir = `${webDir}/css${path}`;
+				var dir = `${web}/css${path}`;
 				data = fs.readFileSync(dir, 'utf-8');
 				type = 'text/css';
 			} catch(err) {
@@ -56,10 +53,10 @@ const server = http.createServer()
 			}
 		}
 		else if (path == '/') {
-			data = fs.readFileSync(`${webDir}/html/index.html`, 'utf-8');
+			data = fs.readFileSync(`${web}/html/index.html`, 'utf-8');
 		}
 		else if (path == '/picks' || path == '/stockpicks') {
-			data = fs.readFileSync(`${webDir}/html/stockpicks.html`, 'utf-8');
+			data = fs.readFileSync(`${web}/html/stockpicks.html`, 'utf-8');
 		}
 		else if (path == '/stocks'){
 			data = JSON.stringify(await stocks.analyze(await stocks.getStocks('all')));
