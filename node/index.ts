@@ -15,52 +15,38 @@ const server = http.createServer()
 	});
 	console.log(req);
 	var path: str = req.url ?? '/';
-	let url: URL = new URL(path, req.headers.host);
+	let url: URL = new URL(path, `http://${req.headers.host}`);
 	var method: str = req.method;
 	var body: str = req.body;
 	var data: str = '';
 	var code: int = 200;
 	var type: str = 'text/html';
+	var file = '';
 	if(method == 'GET'){
 		if (path.endsWith('.html')) {
-			try {
-				var dir = `${web}/html${path}`;
-				data = fs.readFileSync(dir, 'utf-8');
-				type = 'text/html';
-			} catch(err) {
-				console.error(err);
-				code = 404;
-			}
+			file = `/html${path}`;
+			type = 'text/html';
 		}
 		else if (path.endsWith('.js')) {
-			try {
-				var dir = `${web}/js${path}`;
-				data = fs.readFileSync(dir, 'utf-8');
-				type = 'text/javascript';
-			} catch(err) {
-				console.error(err);
-				code = 404;
-			}
+			file = `/js${path}`;
+			type = 'text/javascript';
 		}
 		else if (path.endsWith('.css')) {
-			try {
-				var dir = `${web}/css${path}`;
-				data = fs.readFileSync(dir, 'utf-8');
-				type = 'text/css';
-			} catch(err) {
-				console.error(err);
-				code = 404;
-			}
+			file = `/css${path}`;
+			type = 'text/css';
 		}
 		else if (path == '/') {
-			data = fs.readFileSync(`${web}/html/index.html`, 'utf-8');
+			file = '/html/index.html';
 		}
 		else if (path == '/picks' || path == '/stockpicks') {
-			data = fs.readFileSync(`${web}/html/stockpicks.html`, 'utf-8');
+			file = '/html/stockpicks.html';
 		}
 		else if (path == '/stocks'){
 			data = JSON.stringify(await stocks.analyze(await stocks.getStocks('all')));
-		type = 'text/json';
+			type = 'text/json';
+		}
+		else if (path == '/login'){
+			file = '/html/login.html'
 		}
 		else {
 			code = 404;
@@ -68,7 +54,7 @@ const server = http.createServer()
 	}
 	else if (method == 'POST'){
 		if (path == '/login') {
-
+			console.log(body);
 		}
 		else if ((['/picks', '/stockpicks', '/stocks', '/']).includes(path)){
 			code = 405
@@ -82,6 +68,14 @@ const server = http.createServer()
 	}
 	else {
 		code = 501;
+	}
+	if((['html', 'css', 'javascript']).includes(type.split('/')[1]){
+		try{
+			data = fs.readFileSync(`${web}${file}`, 'utf-8');
+		} catch (e){
+			console.error(e);
+			code = 404;
+		}
 	}
 	var status: str = request.Status[code];
 	data += '\n';
