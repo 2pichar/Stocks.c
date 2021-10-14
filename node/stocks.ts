@@ -1,5 +1,5 @@
 import './types' // get types
-import request from './request';
+import {request} from './request';
 import * as util from './utils';
 var getStockData = async function(ticker: str = "", type:str = "price"){
   var url: str = `https://query1.finance.yahoo.com/v7/finance/download/${ticker}?interval=1d&events=current&includeAdjustedClose=true`;
