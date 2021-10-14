@@ -150,7 +150,7 @@ var getStocks = async function(exch: str = "all"): Promise<str[]>{
 
 var _analyze = function (data: int[]): int {
   let score: int = 0;
-  let chng = data[data.length - 1] - data[0];
+  let chng = data.last() - data[0];
   if (chng < 0) return -10;
   let counts = {
     up: 0,
@@ -171,7 +171,7 @@ var _analyze = function (data: int[]): int {
   if (counts.up > counts.down) {
     score++;
   }
-  let doubled = data[data.length - 1] / data[0] >= 2;
+  let doubled = data.last() / data[0] >= 2;
   if (doubled) {
     score++;
   }
