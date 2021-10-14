@@ -1,7 +1,7 @@
 import * as http from 'http' // Import HTTP module
 declare module 'http' {
-    namespace IncomingMessage {
-        export let body: str;
+    interface IncomingMessage {
+        body: str;
     }
 }
 
@@ -39,18 +39,7 @@ async function getBody(req: http.IncomingMessage): Promise<str>{
         })
         .on('end', ()=>{
             let body = Buffer.concat(data).toString()
-            Object.defineProperty(http.IncomingMessage, 'body', {
-                value: '',
-                configurable: false,
-                enumerable: true,
-                writable: false
-            });
-            Object.defineProperty(req, 'body', {
-                value: body,
-                configurable: false,
-                enumerable: true,
-                writable: false
-            });
+            req.body = body;
             resolve(body);
         });
         
