@@ -9,7 +9,7 @@ type bool = boolean;
 type StockData = [Date, int];
 type StockHistory = StockData[]; 
 
-const Periods = {
+const Periods: {[key: str]: str} = {
   YTD: 'YTD',
   Day: 'Day',
   Week: 'Week',
@@ -19,7 +19,9 @@ const Periods = {
   Year_1: 'Year_1',
   Year_2: 'Year_2'
 }
-
+interface Array<T> {
+  last: ()=> T;
+}
 Object.defineProperty(Array.prototype, "last", {
     value(){
       return self[self.length - 1];
