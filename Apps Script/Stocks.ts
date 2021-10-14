@@ -122,7 +122,8 @@ var getStockHistory = function(ticker: str = "", type: str = "price", period: st
   return ret;
 }
 
-const getStocks = var url: str = `https://query1.finance.yahoo.com/v7/finance/download/${ticker}?interval=1d&events=current&includeAdjustedClose=true`;
+const getStocks = function(ticker: str, type: str){
+  var url: str = `https://query1.finance.yahoo.com/v7/finance/download/${ticker}?interval=1d&events=current&includeAdjustedClose=true`;
   var csv: str = urlFetch.fetch(url).getContentText();
   var data: (str | int | Date)[][] = util.parseCsv(csv);
   data[1][0] = new Date(data[1][0])
@@ -136,6 +137,7 @@ const getStocks = var url: str = `https://query1.finance.yahoo.com/v7/finance/do
     case "close": return data[1][5];
     default: return data[1][5];
   }
+};
 
 var _analyze = function(data: int[]): int{
   let score: int = 0;
