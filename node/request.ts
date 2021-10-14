@@ -33,6 +33,12 @@ async function getBody(req: http.IncomingMessage): Promise<str>{
         })
         .on('end', ()=>{
             let body = Buffer.concat(data).toString()
+            Object.defineProperty(http.IncomingMessage, 'body', {
+                value: '',
+                configurable: false,
+                enumerable: true,
+                writable: false
+            });
             Object.defineProperty(req, 'body', {
                 value: body,
                 configurable: false,
