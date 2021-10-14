@@ -2,7 +2,7 @@
   "include": ["*.ts"],
   "compilerOptions": {
     "baseUrl": "./",
-    "typeRoots": ["../node_modules/@types"],
+    "typeRoots": ["../node_modules/@types", "types/*"],
     "types": ["node"],
     "module": "CommonJS"
   },
