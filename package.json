@@ -4,7 +4,6 @@
   "main": "index.js",
   "dependencies": {
     "@google/clasp": "^2.4.1",
-    "@types/google-apps-script": "^1.0.37",
     "better-sqlite3": "^7.4.3"
   },
   "scripts": {
@@ -14,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/google-apps-script": "^1.0.37",
     "@types/node": "^16.10.2"
   }
 }
