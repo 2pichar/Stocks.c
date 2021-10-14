@@ -69,7 +69,7 @@ const server = http.createServer()
 	else {
 		code = 501;
 	}
-	if((['html', 'css', 'javascript']).includes(type.split('/')[1]){
+	if((['html', 'css', 'javascript']).includes(type.split('/')[1])){
 		try{
 			data = fs.readFileSync(`${web}${file}`, 'utf-8');
 		} catch (e){
