@@ -1,4 +1,10 @@
 import * as http from 'http' // Import HTTP module
+declare module 'http' {
+    namespace IncomingMessage {
+        export let body: str;
+    }
+}
+
 async function request(url: str): Promise<str> {
     return new Promise((resolve, reject)=>{
         const request = http.get(url, (res)=>{
@@ -51,7 +57,7 @@ async function getBody(req: http.IncomingMessage): Promise<str>{
     });
 }
 
-const Status = {
+const Status: {[key: int]: str} = {
     200: 'OK',
     400: 'Bad Request',
     401: 'Unauthorized',
