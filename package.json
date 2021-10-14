@@ -6,9 +6,10 @@
     "better-sqlite3": "^7.4.3"
   },
   "scripts": {
-    "test": "clasp run test\" && exit 1",
-    "build": "cd node && tsc && cd ../'Apps Script' && tsc && cd ..",
-    "clean": "rm node/*.js && 'Apps Script'/*.js"
+    "build": "build () { cd $1 && tsc && cd ..; }; build",
+    "clean": "rm node/*.js && 'Apps Script'/*.js",
+    "start": "npm run build node && npm run node",
+    "node": "node node/index.js"
   },
   "author": "Charles Ludden",
   "license": "ISC",
