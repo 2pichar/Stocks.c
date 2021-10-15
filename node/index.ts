@@ -64,9 +64,11 @@ const server = http.createServer()
 				password = req.body.password;
 			} else {code = 400;}
 			let login: sql.Statement = loginDB.prepare('SELECT * from logins where username = $user and password = $pass');
-			let res: unknown = login.get({user: username, pass: password});
-			if( res == undefined ){
-				code
+			let res: loginEntry = login.get({user: username, pass: password});
+			if( res == undefined ){ // Invalid Username/Password
+				
+			} else { // Valid Username/Password
+				
 			}
 			console.log(res);
 			console.log(path);
