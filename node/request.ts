@@ -41,13 +41,17 @@ async function getBody(req: http.IncomingMessage): Promise<str>{
         .on('end', ()=>{
             let rawBody = Buffer.concat(data).toString()
             req.rawBody = rawBody;
-            var query = rawBody.split('&');
-            var items: strObj;
-            for(var i of query){
-                var [key, value] = i.split('=');
-                items[key] = value;
+            if(rawBody != ''){
+                var query = rawBody.split('&');
+                var items: strObj = {};
+                for(var i of query){
+                    var [key, value] = i.split('=');
+                    items[key] = value;
+                }
+                req.body = items;
+            } else {
+                req.body = {};
             }
-            req.body = items;
             resolve(rawBody);
         });
         
