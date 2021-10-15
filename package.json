@@ -14,9 +14,14 @@
   "author": "Charles Ludden",
   "license": "ISC",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2pichar/Stocks.c.git"
+  },
   "devDependencies": {
     "@google/clasp": "^2.4.1",
     "@types/google-apps-script": "^1.0.37",
-    "@types/node": "^16.10.2"
+    "@types/node": "^16.10.2",
+    "@types/better-sqlite3": "^7.4.0"
   }
 }
