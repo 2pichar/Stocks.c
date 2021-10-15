@@ -9,6 +9,7 @@ type bool = boolean;
 type StockData = [Date, int];
 type StockHistory = StockData[];
 type strObj =  {[key: str]: str};
+type loginEntry = {id: int, username: str, password: str};
 
 const Periods: strObj = {
   YTD: 'YTD',
