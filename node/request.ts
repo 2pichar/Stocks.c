@@ -1,7 +1,8 @@
 import * as http from 'http' // Import HTTP module
 declare module 'http' {
     interface IncomingMessage {
-        body: str;
+        rawBody: str;
+        body: strObj;
     }
 }
 
@@ -38,9 +39,16 @@ async function getBody(req: http.IncomingMessage): Promise<str>{
             reject(err);
         })
         .on('end', ()=>{
-            let body = Buffer.concat(data).toString()
-            req.body = body;
-            resolve(body);
+            let rawBody = Buffer.concat(data).toString()
+            req.rawBody = rawBody;
+            var query = rawBody.split('&');
+            var items: strObj;
+            for(var i of query){
+                var [key, value] = i.split('=');
+                items[key] = value;
+            }
+            req.body = items;
+            resolve(rawBody);
         });
         
     });
