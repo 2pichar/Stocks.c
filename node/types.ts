@@ -7,9 +7,10 @@ type bool = boolean;
 
 // Custom Types
 type StockData = [Date, int];
-type StockHistory = StockData[]; 
+type StockHistory = StockData[];
+type strObj =  {[key: str]: str};
 
-const Periods: {[key: str]: str} = {
+const Periods: strObj = {
   YTD: 'YTD',
   Day: 'Day',
   Week: 'Week',
