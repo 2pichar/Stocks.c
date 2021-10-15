@@ -4,7 +4,7 @@ import * as request from './request';
 import * as fs from 'fs';
 import * as sql from 'better-sqlite3'
 
-const loginDB: sql.Database = new sql.Database('main.db');
+const loginDB: sql.Database = new sql(__dirname+'/main.db');
 const web = __dirname+'/../web';
 const PORT = 3000;
 
@@ -64,7 +64,11 @@ const server = http.createServer()
 				password = req.body.password;
 			} else {code = 400;}
 			let login: sql.Statement = loginDB.prepare('SELECT * from logins where username = $user and password = $pass');
-			let res: sql.Database.runResult = login.run({user: username, pass: password});
+			let res: unknown = login.get({user: username, pass: password});
+			if( res == undefined ){
+				code
+			}
+			console.log(res);
 			console.log(path);
 		}
 		else if ((['/picks', '/stockpicks', '/stocks', '/']).includes(path)){
