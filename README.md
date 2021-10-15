@@ -8,6 +8,6 @@ This is the source code for a Google Apps Script project connected to a <a href=
 
 <a href="https://script.google.com/home/projects/1EJNd-noqgkYI4VBh3Emtjz_LsPCT6pJDOQNI1DGsY7lbBSUjZoCITmtT/edit" title="Stocks.c Project Editor">Apps Script Project</a>
 
-To view the Node.JS version of the Stocks.c Stock Finder, run `cd node; tsc; node main.js;`
+To view the Node.JS version of the Stocks.c Stock Finder, run `npm start` from the root of the project
 
 ### TODO
