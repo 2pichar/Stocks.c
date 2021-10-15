@@ -3,7 +3,9 @@ import * as http from 'http';
 import * as request from './request';
 import * as fs from 'fs';
 import * as sql from 'better-sqlite3'
-const web = './../web';
+
+const loginDB: sql.Database = new sql.Database('main.db');
+const web = __dirname+'/../web';
 const PORT = 3000;
 
 const server = http.createServer()
@@ -17,7 +19,6 @@ const server = http.createServer()
 	var path: str = req.url ?? '/';
 	let url: URL = new URL(path, `http://${req.headers.host}`);
 	var method: str = req.method;
-	var body: str = req.body;
 	var data: str = '';
 	var code: int = 200;
 	var type: str = 'text/html';
@@ -54,7 +55,17 @@ const server = http.createServer()
 	}
 	else if (method == 'POST'){
 		if (path == '/login') {
-			console.log(body);
+			let username: str;
+			let password: str;
+			if ('username' in req.body){
+				username = req.body.username;
+			} else {code = 400;}
+			if('password' in req.body){
+				password = req.body.password;
+			} else {code = 400;}
+			let login: sql.Statement = loginDB.prepare('SELECT * from logins where username = $user and password = $pass');
+			let res: sql.Database.runResult = login.run({user: username, pass: password});
+			console.log(path);
 		}
 		else if ((['/picks', '/stockpicks', '/stocks', '/']).includes(path)){
 			code = 405
@@ -69,9 +80,10 @@ const server = http.createServer()
 	else {
 		code = 501;
 	}
-	if((['html', 'css', 'javascript']).includes(type.split('/')[1])){
+	if(method == 'GET' && !data && (['html', 'css', 'javascript']).includes(type.split('/')[1]) && code != 404){
 		try{
-			data = fs.readFileSync(`${web}${file}`, 'utf-8');
+			let loc = `${web}${file}`;
+			data = fs.readFileSync(loc, 'utf-8');
 		} catch (e){
 			console.error(e);
 			code = 404;
