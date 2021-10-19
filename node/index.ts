@@ -8,6 +8,15 @@ const loginDB: sql.Database = new sql(__dirname+'/main.db');
 const web = __dirname+'/../web';
 const PORT = 3000;
 
+const storage_json = fs.open('./storage.json', 'rw');
+const vars = JSON.parse(storage_json.readFileSync());
+var lastSessionID = vars['lastSessionID'];
+
+// SQL Queries
+const login: sql.Statement = loginDB.prepare('SELECT * from logins where username = $user and password = $pass');
+
+var headers = {};
+
 const server = http.createServer()
 .on('request', async (req, res)=>{
 	await request.getBody(req);
@@ -59,17 +68,20 @@ const server = http.createServer()
 			let password: str;
 			if ('username' in req.body){
 				username = req.body.username;
+                if('password' in req.body){
+				    password = req.body.password;
+			        let res: loginEntry = login.get({user: username, pass: password});
+                    if( res == undefined ){ // Invalid Username/Password
+                        
+                    } else { // Valid Username/Password
+                        code = 200;
+                        var sessionID = lastSessionID++;
+                        headers['Set-Cookie'] = `session=${username}:${password}; sessionID=${sessionID}`;
+                        var summ = {};
+                    }
+			    } else {code = 400;}
 			} else {code = 400;}
-			if('password' in req.body){
-				password = req.body.password;
-			} else {code = 400;}
-			let login: sql.Statement = loginDB.prepare('SELECT * from logins where username = $user and password = $pass');
-			let res: loginEntry = login.get({user: username, pass: password});
-			if( res == undefined ){ // Invalid Username/Password
-				
-			} else { // Valid Username/Password
-				
-			}
+			
 			console.log(res);
 			console.log(path);
 		}
@@ -90,8 +102,8 @@ const server = http.createServer()
 		try{
 			let loc = `${web}${file}`;
 			data = fs.readFileSync(loc, 'utf-8');
-		} catch (e){
-			console.error(e);
+		} catch (err){
+			console.error(err);
 			code = 404;
 		}
 	}
@@ -100,7 +112,8 @@ const server = http.createServer()
 	var msg = `${code} ${status}`;
 	res.writeHead(code, msg, {
 			'Content-Length':Buffer.byteLength(data),
-			'Content-Type': `${type}`
+			'Content-Type': `${type}`,
+            ...headers
 	})
 	res.write(data);
 	res.end();
