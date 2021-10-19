@@ -9,7 +9,7 @@
     "build": "build () { cd $1 && tsc && cd ..; }; build",
     "clean": "rm node/*.js && 'Apps Script'/*.js",
     "start": "npm run build node && npm run node",
-    "node": "node node/index.js"
+    "node": "node ./node/index.js"
   },
   "author": "Charles Ludden",
   "license": "ISC",
