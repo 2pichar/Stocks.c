@@ -6,10 +6,10 @@
     "better-sqlite3": "^7.4.3"
   },
   "scripts": {
-    "build": "build () { cd $1 && tsc && cd ..; }; build",
-    "clean": "rm node/*.js && 'Apps Script'/*.js",
-    "start": "npm run build node && npm run node",
-    "node": "node ./node/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run clean && tsc",
+    "clean": "rm src/js/*.js",
+    "start": "npm run build && node src/js/index.js"
   },
   "author": "Charles Ludden",
   "license": "ISC",
@@ -19,9 +19,6 @@
     "url": "git+https://github.com/2pichar/Stocks.c.git"
   },
   "devDependencies": {
-    "@google/clasp": "^2.4.1",
-    "@types/google-apps-script": "^1.0.37",
-    "@types/node": "^16.10.2",
-    "@types/better-sqlite3": "^7.4.0"
+    "@types/node": "^16.10.2"
   }
 }
