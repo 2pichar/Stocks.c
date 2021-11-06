@@ -9,7 +9,6 @@ type bool = boolean;
 type StockData = [Date, int];
 type StockHistory = StockData[];
 type strObj =  {[key: str]: str};
-type loginEntry = {id: int, username: str, password: str};
 
 const Periods: strObj = {
   YTD: 'YTD',
@@ -26,12 +25,11 @@ interface Array<T> {
 }
 Object.defineProperty(Array.prototype, "last", {
     value(){
-      return self[self.length - 1];
+      return this[this.length - 1];
     },
     enumerable: false,
     configurable: false,
     writable: false
 });
-
-global.ndxlsturl = "https://pkgstore.datahub.io/core/nasdaq-listings/nasdaq-listed-symbols_csv/data/595a1f263719c09a8a0b4a64f17112c6/nasdaq-listed-symbols_csv.csv";
-global.nyselsturl = "https://pkgstore.datahub.io/core/nyse-other-listings/nyse-listed_csv/data/3c88fab8ec158c3cd55145243fe5fcdf/nyse-listed_csv.csv";
+const ndxlsturl = "https://pkgstore.datahub.io/core/nasdaq-listings/nasdaq-listed-symbols_csv/data/595a1f263719c09a8a0b4a64f17112c6/nasdaq-listed-symbols_csv.csv";
+const nyselsturl = "https://pkgstore.datahub.io/core/nyse-other-listings/nyse-listed_csv/data/3c88fab8ec158c3cd55145243fe5fcdf/nyse-listed_csv.csv";

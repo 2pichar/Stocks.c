@@ -133,9 +133,9 @@ var getStocks = async function(exch: str = "all"): Promise<str[]>{
   var csv: str;
   var url: str;
   if(exch === "nasdaq"){
-    url = global.ndxlsturl;
+    url = ndxlsturl;
   } else if(exch == "nyse"){
-    url = global.nyselsturl;
+    url = nyselsturl;
   } else {
     //exch == "all"
     var ndx = await getStocks("nasdaq");
