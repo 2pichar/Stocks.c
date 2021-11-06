@@ -1,5 +1,5 @@
 {
-  "include": ["*.ts"],
+  "include": ["src/ts/*.ts"],
   "compilerOptions": {
     "baseUrl": "./",
     "typeRoots": ["../node_modules/@types", "types/*"],
