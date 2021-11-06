@@ -4,7 +4,8 @@
     "baseUrl": "./",
     "typeRoots": ["../node_modules/@types", "types/*"],
     "types": ["node"],
-    "module": "CommonJS"
+    "module": "CommonJS",
+    "outDir": "src/js"
   },
   "exclude": [
     "node_modules"
